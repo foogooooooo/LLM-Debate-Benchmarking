@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Symphony of Minds | AI Debate Arena</title>
+    
+    <!-- Google Fonts: Crimson Pro for editorial headings, Space Grotesk for modern body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+      /* Global Design Tokens - Default Dark Theme */
+      :root {
+        /* Colors - Editorial Dark Theme */
+        --color-bg-primary: #0a0f0d;
+        --color-bg-secondary: #141a16;
+        --color-bg-tertiary: #1a211c;
+        --color-accent-gold: #d4a574;
+        --color-accent-copper: #b87333;
+        --color-accent-amber: #f59e0b;
+        --color-text-primary: #faf9f6;
+        --color-text-secondary: #a8a5a0;
+        --color-text-muted: #6b6864;
+        --color-border: #2a332d;
+        --color-deepseek: #5b8a72;
+        --color-glm: #7c9cb4;
+        --color-host: #d4a574;
+        
+        /* Typography */
+        --font-editorial: 'Crimson Pro', Georgia, serif;
+        --font-modern: 'Space Grotesk', system-ui, sans-serif;
+      }
+      
+      /* Light Theme */
+      [data-theme="light"] {
+        --color-bg-primary: #faf9f6;
+        --color-bg-secondary: #f5f4f0;
+        --color-bg-tertiary: #ebe9e3;
+        --color-accent-gold: #b87333;
+        --color-accent-copper: #9a5f2a;
+        --color-accent-amber: #d97706;
+        --color-text-primary: #1a1a1a;
+        --color-text-secondary: #4a4a48;
+        --color-text-muted: #7a7a76;
+        --color-border: #d4d2cc;
+        --color-deepseek: #4a7c5e;
+        --color-glm: #5a7a94;
+        --color-host: #b87333;
+      }
+      
+      * {
+        box-sizing: border-box;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-modern);
+        background-color: var(--color-bg-primary);
+        color: var(--color-text-primary);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        min-height: 100vh;
+      }
+      
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: var(--color-bg-secondary);
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: var(--color-border);
+        border-radius: 3px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-accent-copper);
+      }
+      
+      /* Selection */
+      ::selection {
+        background: var(--color-accent-gold);
+        color: var(--color-bg-primary);
+      }
+      
+      /* Typography Helpers */
+      .font-editorial {
+        font-family: var(--font-editorial);
+      }
+      
+      .font-modern {
+        font-family: var(--font-modern);
+      }
+      
+      /* Animation Keyframes */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes pulse-glow {
+        0%, 100% {
+          box-shadow: 0 0 20px rgba(212, 165, 116, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(212, 165, 116, 0.6);
+        }
+      }
+      
+      @keyframes typing {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
