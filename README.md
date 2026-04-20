@@ -1,73 +1,110 @@
-# React + TypeScript + Vite
+# LLM Debate Benchmarking
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A three-party AI debate arena where **DeepSeek** and **GLM-4** hold structured, multi-round discussions on any topic you set — while you act as the moderator.
 
-Currently, two official plugins are available:
+![Tech Stack](https://img.shields.io/badge/React-19-61DAFB?logo=react) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript) ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite) ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?logo=tailwindcss)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+LLM Debate Benchmarking lets you observe and compare how two frontier language models — DeepSeek and GLM-4 — reason through open-ended questions. As the moderator, you set the topic, guide each round with follow-up prompts, and watch the models build on each other's arguments in real time.
 
-## Expanding the ESLint configuration
+Both models respond with **streaming output**, and DeepSeek's chain-of-thought reasoning and GLM-4's web search results are exposed inline so you can see exactly how each model arrives at its answer.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Feature | Details |
+|---|---|
+| **Real-time streaming** | Responses stream token-by-token via SSE for both models |
+| **DeepSeek deep thinking** | Toggle extended chain-of-thought reasoning; reasoning trace shown in a collapsible panel |
+| **GLM-4 web search** | Toggle live web search; cited search results shown inline |
+| **Three-party dialogue** | Full conversation history is passed to each model every round, so they can directly respond to each other |
+| **Moderator input** | You inject prompts between rounds to steer the discussion |
+| **Auto-continue** | Set N rounds to auto-advance — a 3-second countdown fires between rounds, with pause at any time |
+| **Export to Markdown** | Download the full debate as a formatted `.md` file |
+| **Copy messages** | One-click copy on any completed message |
+| **Conversation history** | Past sessions are saved to `localStorage` and can be resumed |
+| **API key settings** | Enter your own keys via the UI; stored in `localStorage`, never in source code |
+| **Dark / light theme** | Toggle with one click |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- A [DeepSeek API key](https://platform.deepseek.com/)
+- A [Zhipu AI (GLM-4) API key](https://open.bigmodel.cn/)
+
+### Install & Run
+
+```bash
+git clone https://github.com/foogooooooo/LLM-Debate-Benchmarking.git
+cd LLM-Debate-Benchmarking
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open `http://localhost:5173` in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Configure API Keys
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Click the **⚙** icon in the top-right corner
+2. Enter your DeepSeek and GLM-4 API keys
+3. Click **Save** — keys are stored locally in your browser and never sent anywhere except the respective model APIs
+
+---
+
+## Usage
+
+1. **Set a topic** — Enter any open-ended question in the input box (or pick a suggestion)
+2. **Start the debate** — DeepSeek responds first, then GLM-4
+3. **Guide the next round** — Type a follow-up prompt or leave it blank to let the models continue freely
+4. **Auto-continue** — Set a round count to let the debate run hands-free
+5. **Export** — Click the download button to save the full debate as Markdown
+
+---
+
+## Tech Stack
+
+- **React 19** + **TypeScript 5.9**
+- **Vite 8** — build tooling and dev server
+- **Tailwind CSS v4** — styling with CSS custom properties for theming
+- **Lucide React** — icons
+- **DeepSeek API** — `deepseek-reasoner` (deep thinking) or `deepseek-chat`
+- **Zhipu AI API** — `glm-4-plus` with optional web search tool
+
+---
+
+## Project Structure
+
 ```
+src/
+├── components/
+│   ├── DebateArena.tsx       # Main debate view, auto-rounds logic
+│   ├── ChatBubble.tsx        # Message display with reasoning/search panels
+│   ├── TopicInput.tsx        # Topic entry and debate start
+│   ├── RoleConfigPanel.tsx   # Per-model feature toggles
+│   ├── SettingsModal.tsx     # API key management
+│   ├── ConversationHistory.tsx
+│   └── ThemeToggle.tsx
+├── contexts/
+│   └── DebateContext.tsx     # Global state via useReducer
+├── hooks/
+│   └── useAIAPI.ts           # Streaming API calls for both models
+├── utils/
+│   ├── export.ts             # Markdown export
+│   └── storage.ts            # localStorage conversation persistence
+└── types/
+    └── index.ts              # Shared types and default config
+```
+
+---
+
+## License
+
+MIT
